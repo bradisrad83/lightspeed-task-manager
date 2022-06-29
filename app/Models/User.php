@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -43,6 +44,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    public $appends = ['projectTitles'];
+
+    /**
      * Get the tasks for the user
      */
     public function tasks()
@@ -55,6 +63,14 @@ class User extends Authenticatable
      */
     public function projects()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Project::class);
+    }
+
+    /**
+     * Returns a list of project titles associated with the usr
+     */
+    public function getProjectTitlesAttribute()
+    {
+        return implode(", ", $this->projects->pluck('title')->toArray());
     }
 }

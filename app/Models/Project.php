@@ -17,6 +17,13 @@ class Project extends Model
     protected $guarded = [];    
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    public $appends = ['totalHours', 'names'];
+
+    /**
      * Get the tasks for the project
      */
     public function tasks()
@@ -35,7 +42,7 @@ class Project extends Model
     /**
      * Returns the total hours of estimated tasks
      */
-    public function totalHours()
+    public function getTotalHoursAttribute()
     {
         return $this->tasks->sum('estimated_hours');
     }
@@ -43,8 +50,8 @@ class Project extends Model
     /**
      * Returns a list of names of the users
      */
-    public function getNames()
+    public function getNamesAttribute()
     {
-        return implode(", ", $this->users->pluck('name')->toArray());
+        return implode(", ", $this->users->pluck('first_name')->toArray());
     }
 }
