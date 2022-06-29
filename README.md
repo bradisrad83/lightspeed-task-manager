@@ -1,6 +1,6 @@
-## Brad's Coding Challenge 
+# Brad's Coding Challenge 
 
-# Instructions 
+## Instructions 
 1. clone repo
 2. cd into repo
 3. composer install
