@@ -15,14 +15,8 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        $titles = [
-            'Slack Integration',
-            'Laravel Upgrade',
-            'Dashboard Build',
-            'Mobile App Build',
-            'API Integration',
-        ];
-
+        $titles = ['E-Commerce Website', 'Websocket Updates', 'Angular Upgrade'];
+        
         foreach($titles as $title) {
             Project::create([
                 'title' => $title,

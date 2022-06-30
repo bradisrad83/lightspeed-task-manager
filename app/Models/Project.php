@@ -21,7 +21,7 @@ class Project extends Model
      *
      * @var array
      */
-    public $appends = ['totalHours', 'names'];
+    public $appends = ['totalHours', 'members'];
 
     /**
      * Get the tasks for the project
@@ -50,8 +50,8 @@ class Project extends Model
     /**
      * Returns a list of names of the users
      */
-    public function getNamesAttribute()
+    public function getMembersAttribute()
     {
-        return implode(", ", $this->users->pluck('first_name')->toArray());
+        return implode(", ", $this->users->pluck('name')->toArray());
     }
 }

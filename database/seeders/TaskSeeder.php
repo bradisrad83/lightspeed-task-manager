@@ -16,223 +16,101 @@ class TaskSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::all();
-
-        $slack_integration_tasks = [
+        $e_commerce_website_tasks = [
             [
-                'title'             => 'Serverless Function',
-                'estimated_hours'   => 10,
-            ],
-            [
-                'title'             => 'Create Webhook Route',
-                'estimated_hours'   => 4,
-            ],
-            [
-                'title'             => 'Create Slack App',
+                'title'             => 'Product Pages',
                 'estimated_hours'   => 5,
+                'assigned_to'       => 'Adam'
             ],
             [
-                'title'             => 'Test',
-                'estimated_hours'   => 6,
-            ],
-            [
-                'title'             => 'Deploy',
-                'estimated_hours'   => 2,
-            ],
-        ];
-
-        $laravel_upgrad_tasks = [
-            [
-                'title'             => 'Check Documentation',
-                'estimated_hours'   => 2,
-            ],
-            [
-                'title'             => 'Upgrade Laravel and the Needed Composer Packages',
-                'estimated_hours'   => 5,
-            ],
-            [
-                'title'             => 'Test Locally',
-                'estimated_hours'   => 4,
-            ],
-            [
-                'title'             => 'Fix Errors',
-                'estimated_hours'   => 6,
-            ],
-            [
-                'title'             => 'Deploy',
-                'estimated_hours'   => 1,
-            ],
-        ];
-
-        $dashboard_build_tasks = [
-            [
-                'title'             => 'Install Laravel Nova',
-                'estimated_hours'   => 1,
-            ],
-            [
-                'title'             => 'Create Nova Resources',
-                'estimated_hours'   => 6,
-            ],
-            [
-                'title'             => 'Create Nova Policies',
-                'estimated_hours'   => 4,
-            ],
-            [
-                'title'             => 'Create Metrics',
-                'estimated_hours'   => 12,
-            ],
-            [
-                'title'             => 'Custom Nova Actions',
-                'estimated_hours'   => 8,
-            ],
-            [
-                'title'             => 'Nova Filters',
-                'estimated_hours'   => 9,
-            ],
-            [
-                'title'             => 'Implement Lenses',
-                'estimated_hours'   => 7,
-            ],
-            [
-                'title'             => 'Custom CSS Theme',
+                'title'             => 'Shopping Cart',
                 'estimated_hours'   => 10,
-            ],            
+                'assigned_to'       => 'Tyler'
+            ],
+            [
+                'title'             => 'My Account',
+                'estimated_hours'   => 5,
+                'assigned_to'       => 'Adam'
+            ],                        
         ];
 
-        $mobile_app_build_tasks = [
+        $websocket_update_tasks = [
             [
-                'title'             => 'Setup React Native Repo',
+                'title'             => 'Add to Socket.IO',
                 'estimated_hours'   => 2,
+                'assigned_to'       => 'Stuart'
             ],
             [
-                'title'             => 'Install Redux',
-                'estimated_hours'   => 1,
+                'title'             => 'Enable Broadcasting',
+                'estimated_hours'   => 5,
+                'assigned_to'       => 'Stuart'
             ],
             [
-                'title'             => 'Create Components',
-                'estimated_hours'   => 14,
+                'title'             => 'Adjust Interface',
+                'estimated_hours'   => 3,
+                'assigned_to'       => 'Stuart'
+            ],                        
+        ];        
+
+        $angular_upgrade_tasks = [
+            [
+                'title'             => 'Upgrade Angular',
+                'estimated_hours'   => 15,
+                'assigned_to'       => 'Lan'
             ],
             [
-                'title'             => 'Integrate with API',
-                'estimated_hours'   => 12,
-            ],
-            [
-                'title'             => 'Create Google and Apple Accounts for Deployment',
-                'estimated_hours'   => 6,
-            ],
-            [
-                'title'             => 'Style and Animate Where Needed',
-                'estimated_hours'   => 8,
-            ],
-            [
-                'title'             => 'User Authentication',
-                'estimated_hours'   => 8,
+                'title'             => 'Fix Broken Things',
+                'estimated_hours'   => 10,
+                'assigned_to'       => 'Stuart'
             ],
             [
                 'title'             => 'Test',
                 'estimated_hours'   => 10,
-            ],            
-            [
-                'title'             => 'Deploy to Stores',
-                'estimated_hours'   => 7,
-            ],            
-        ];
+                'assigned_to'       => 'Lan'
+            ],                        
+        ];         
 
-        $api_integration_tasks = [
-            [
-                'title'             => 'Install Stripe SDK',
-                'estimated_hours'   => 2,
-            ],
-            [
-                'title'             => 'Set up Stripe Dashboard',
-                'estimated_hours'   => 3,
-            ],
-            [
-                'title'             => 'Create Keys and Authentication',
-                'estimated_hours'   => 4,
-            ],
-            [
-                'title'             => 'Bind to App Container',
-                'estimated_hours'   => 3,
-            ],
-            [
-                'title'             => 'Test Locally',
-                'estimated_hours'   => 6,
-            ],
-            [
-                'title'             => 'Deploy',
-                'estimated_hours'   => 1,
-            ],            
-        ];
-
-        $slack_project = Project::where('slug', 'slack-integration')->first();
-        $slack_users_id = [];
-        foreach($slack_integration_tasks as $task) {
-            $user = $users->random(1);
+        $e_commerce_project = Project::where('slug', 'e-commerce-website')->first();
+        $e_commerce_users = [];
+        foreach($e_commerce_website_tasks as $task) {
+            $user = User::where('name', $task['assigned_to'])->first();
             Task::create([
                 'title'             => $task['title'],
                 'estimated_hours'   => $task['estimated_hours'],
-                'user_id'           => $user[0]->id,
-                'project_id'        => $slack_project->id,
+                'user_id'           => $user->id,
+                'project_id'        => $e_commerce_project->id,
             ]);
-            $slack_users_id[] = $user[0]->id;
+            $e_commerce_users[] = $user->id;
         }
-        $slack_project->users()->sync($slack_users_id);
+        $e_commerce_project->users()->sync($e_commerce_users);
 
-        $laravel_project = Project::where('slug', 'laravel-upgrade')->first();
-        $laravel_users_id = [];
-        foreach($laravel_upgrad_tasks as $task) {
-            $user = $users->random(1);
+        $websocket_project = Project::where('slug', 'websocket-updates')->first();
+        $websocket_users = [];
+        foreach($websocket_update_tasks as $task) {
+            $user = User::where('name', $task['assigned_to'])->first();
             Task::create([
                 'title'             => $task['title'],
                 'estimated_hours'   => $task['estimated_hours'],
-                'user_id'           => $user[0]->id,
-                'project_id'        => $laravel_project->id,
+                'user_id'           => $user->id,
+                'project_id'        => $websocket_project->id,
             ]);
-            $laravel_users_id[] = $user[0]->id;
-        }  
-        $laravel_project->users()->sync($laravel_users_id);
+            $websocket_users[] = $user->id;
+        }
+        $websocket_project->users()->sync($websocket_users);
 
-        $dashboard_project = Project::where('slug', 'dashboard-build')->first();
-        $dashboard_users_id = [];
-        foreach($dashboard_build_tasks as $task) {
-            $user = $users->random(1);
+        $angular_project = Project::where('slug', 'angular-upgrade')->first();
+        $angular_users = [];
+        foreach($angular_upgrade_tasks as $task) {
+            $user = User::where('name', $task['assigned_to'])->first();
             Task::create([
                 'title'             => $task['title'],
                 'estimated_hours'   => $task['estimated_hours'],
-                'user_id'           => $user[0]->id,
-                'project_id'        => $dashboard_project->id,
+                'user_id'           => $user->id,
+                'project_id'        => $angular_project->id,
             ]);
-            $dashboard_users_id[] = $user[0]->id;
-        } 
-        $dashboard_project->users()->sync($dashboard_users_id);
+            $angular_users[] = $user->id;
+        }
+        $angular_project->users()->sync($angular_users);
         
-        $mobile_project = Project::where('slug', 'mobile-app-build')->first();
-        $mobile_users_id = [];
-        foreach($mobile_app_build_tasks as $task) {
-            $user = $users->random(1);
-            Task::create([
-                'title'             => $task['title'],
-                'estimated_hours'   => $task['estimated_hours'],
-                'user_id'           => $user[0]->id,
-                'project_id'        => $mobile_project->id,
-            ]);
-            $mobile_users_id[] = $user[0]->id;
-        }      
-        $mobile_project->users()->sync($mobile_users_id);
-        
-        $api_project = Project::where('slug', 'api-integration')->first();
-        $api_users_id = [];
-        foreach($api_integration_tasks as $task) {
-            $user = $users->random(1);
-            Task::create([
-                'title'             => $task['title'],
-                'estimated_hours'   => $task['estimated_hours'],
-                'user_id'           => $user[0]->id,
-                'project_id'        => $api_project->id,
-            ]);
-            $api_users_id[] = $user[0]->id;
-        }         
-        $api_project->users()->sync($api_users_id);
     }
 }
