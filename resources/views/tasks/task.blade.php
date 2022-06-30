@@ -6,7 +6,7 @@
             <div class="font-bold text-gray-600 border-y-2 border-l-2 border-slate-400 py-2 px-4">Hours</div>
             <div class="font-bold text-gray-600 border-y-2 border-l-2 border-slate-400 py-2 px-4">Project</div>
             <div class="font-bold text-gray-600 border-y-2 border-x-2 border-slate-400 py-2 px-4">Actions</div>
-            <div class="py-2 px-4 text-gray-700 border-y-2 border-l-2 border-slate-400">{{ $task->user->first_name }}</div>
+            <div class="py-2 px-4 text-gray-700 border-y-2 border-l-2 border-slate-400">{{ $task->user->name }}</div>
             <div class="py-2 px-4 text-gray-700 border-y-2 border-l-2 border-slate-400">{{ $task->estimated_hours }}</div>
             <div class="py-2 px-4 text-gray-700 border-y-2 border-l-2 border-slate-400">{{ $task->project->title}}</div>
             <div class="py-2 px-4 text-gray-700 border-y-2 border-x-2 border-slate-400"><a href="{{ route('users.show', [ 'user' => $task->user ])}}"><span class="bg-gray-800 hover:bg-gray-600 px-2 rounded text-white cursor-pointer">View</span></a></div>

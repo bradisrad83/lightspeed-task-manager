@@ -1,6 +1,6 @@
 <x-layout>
     <div class="w-full md:w-3/4 px-4 py-2 md:py-10 md:px-8">
-        <h2 class="text-gray-600 font-bold text-2xl mb-2">{{$user->first_name.' '.$user->last_name}}</h2>
+        <h2 class="text-gray-600 font-bold text-2xl mb-2">{{$user->name}}'s Projects and Tasks</h2>
         <div class="grid grid-cols-4">   
             <div class="font-bold text-gray-600 border-y-2 border-l-2 border-slate-400 py-2 px-4">Project</div>
             <div class="font-bold text-gray-600 border-y-2 border-l-2 border-slate-400 py-2 px-4">Task</div>

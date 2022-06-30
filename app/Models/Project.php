@@ -52,6 +52,6 @@ class Project extends Model
      */
     public function getNamesAttribute()
     {
-        return implode(", ", $this->users->pluck('first_name')->toArray());
+        return implode(", ", $this->users->pluck('name')->toArray());
     }
 }

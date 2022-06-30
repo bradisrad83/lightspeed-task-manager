@@ -10,12 +10,9 @@
             <div class="col-span-2 font-bold text-gray-600 border-y-2 border-l-2 border-slate-400 py-2 px-4">Projects</div>
             <div class="font-bold text-gray-600 border-y-2 border-x-2 border-slate-400 py-2 px-4">Actions</div>
             @foreach($users as $user)
-                <div class="py-2 px-4 text-gray-700 border-y-2 border-l-2 border-slate-400">{{ $user->first_name.' '.$user->last_name }}</div>
+                <div class="py-2 px-4 text-gray-700 border-y-2 border-l-2 border-slate-400">{{ $user->name }}</div>
                 <div class="py-2 px-4 text-gray-700 col-span-2 border-y-2 border-l-2 border-slate-400">{{ $user->projectTitles }}</div>
                 <div class="py-2 px-4 text-gray-700 border-y-2 border-x-2 border-slate-400"><a href="{{ route('users.show', [ 'user' => $user ])}}"><span class="bg-gray-800 hover:bg-gray-600 px-2 rounded text-white cursor-pointer">View</span></a></div>
-                {{-- <div></div> --}}
-                {{-- <div></div> --}}
-                {{-- <div></div> --}}
             @endforeach
         <div>
     </div>
